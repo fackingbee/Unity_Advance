@@ -1,18 +1,18 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 /// <summary>
 /// This class helps you to synchronize Mecanim animations
 /// Simply add the component to your GameObject and make sure that
 /// the PhotonAnimatorView is added to the list of observed components
 /// </summary>
-[RequireComponent(typeof (Animator))]
-[RequireComponent(typeof (PhotonView))]
+[RequireComponent( typeof( Animator ) )]
+[RequireComponent( typeof( PhotonView ) )]
 [AddComponentMenu("Photon Networking/Photon Animator View")]
 public class PhotonAnimatorView : MonoBehaviour
 {
     #region Enums
-
     public enum ParameterType
     {
         Float = 1,
@@ -42,74 +42,62 @@ public class PhotonAnimatorView : MonoBehaviour
         public SynchronizeType SynchronizeType;
         public int LayerIndex;
     }
-
     #endregion
 
     #region Properties
-
 #if PHOTON_DEVELOP
     public PhotonAnimatorView ReceivingSender;
 #endif
-
     #endregion
 
     #region Members
+    Animator m_Animator;
 
-    private Animator m_Animator;
-
-    private PhotonStreamQueue m_StreamQueue;
+    PhotonStreamQueue m_StreamQueue;
 
     //These fields are only used in the CustomEditor for this script and would trigger a 
     //"this variable is never used" warning, which I am suppressing here
 #pragma warning disable 0414
     [HideInInspector]
     [SerializeField]
-    private bool ShowLayerWeightsInspector = true;
+    bool ShowLayerWeightsInspector = true;
 
     [HideInInspector]
     [SerializeField]
-    private bool ShowParameterInspector = true;
+    bool ShowParameterInspector = true;
 #pragma warning restore 0414
 
     [HideInInspector]
     [SerializeField]
-    private List<SynchronizedParameter> m_SynchronizeParameters = new List<SynchronizedParameter>();
+    List<SynchronizedParameter> m_SynchronizeParameters = new List<SynchronizedParameter>();
 
     [HideInInspector]
     [SerializeField]
-    private List<SynchronizedLayer> m_SynchronizeLayers = new List<SynchronizedLayer>();
+    List<SynchronizedLayer> m_SynchronizeLayers = new List<SynchronizedLayer>();
 
-    private Vector3 m_ReceiverPosition;
-    private float m_LastDeserializeTime;
-    private bool m_WasSynchronizeTypeChanged = true;
-    private PhotonView m_PhotonView;
-
+    Vector3 m_ReceiverPosition;
+    float m_LastDeserializeTime;
+    bool m_WasSynchronizeTypeChanged = true;
+    PhotonView m_PhotonView;
     #endregion
 
     #region Unity
-
-    private void Awake()
+    void Awake() 
     {
-        this.m_PhotonView = GetComponent<PhotonView>();
-        this.m_StreamQueue = new PhotonStreamQueue(120);
+        m_PhotonView = GetComponent<PhotonView>();
+        m_StreamQueue = new PhotonStreamQueue( 120 );
 
-        this.m_Animator = GetComponent<Animator>();
+        m_Animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    void Update()
     {
-        if (this.m_PhotonView.isMine == false && PhotonNetwork.connected == true)
+        if( m_PhotonView.isMine == false && PhotonNetwork.connected == true )
         {
-            this.m_Animator.applyRootMotion = false;
+            m_Animator.applyRootMotion = false;
         }
 
-        if (PhotonNetwork.inRoom == false || PhotonNetwork.room.playerCount <= 1)
-        {
-            this.m_StreamQueue.Reset();
-            return;
-        }
-
-        if (this.m_PhotonView.isMine == true)
+        if( m_PhotonView.isMine == true )
         {
             SerializeDataContinuously();
         }
@@ -118,19 +106,17 @@ public class PhotonAnimatorView : MonoBehaviour
             DeserializeDataContinuously();
         }
     }
-
     #endregion
 
     #region Setup Synchronizing Methods
-
     /// <summary>
     /// Check if a specific layer is configured to be synchronize
     /// </summary>
     /// <param name="layerIndex">Index of the layer.</param>
     /// <returns>True if the layer is synchronized</returns>
-    public bool DoesLayerSynchronizeTypeExist(int layerIndex)
+    public bool DoesLayerSynchronizeTypeExist( int layerIndex )
     {
-        return this.m_SynchronizeLayers.FindIndex(item => item.LayerIndex == layerIndex) != -1;
+        return m_SynchronizeLayers.FindIndex( item => item.LayerIndex == layerIndex ) != -1;
     }
 
     /// <summary>
@@ -138,9 +124,9 @@ public class PhotonAnimatorView : MonoBehaviour
     /// </summary>
     /// <param name="name">The name of the parameter.</param>
     /// <returns>True if the parameter is synchronized</returns>
-    public bool DoesParameterSynchronizeTypeExist(string name)
+    public bool DoesParameterSynchronizeTypeExist( string name )
     {
-        return this.m_SynchronizeParameters.FindIndex(item => item.Name == name) != -1;
+        return m_SynchronizeParameters.FindIndex( item => item.Name == name ) != -1;
     }
 
     /// <summary>
@@ -149,7 +135,7 @@ public class PhotonAnimatorView : MonoBehaviour
     /// <returns>List of SynchronizedLayer objects</returns>
     public List<SynchronizedLayer> GetSynchronizedLayers()
     {
-        return this.m_SynchronizeLayers;
+        return m_SynchronizeLayers;
     }
 
     /// <summary>
@@ -158,7 +144,7 @@ public class PhotonAnimatorView : MonoBehaviour
     /// <returns>List of SynchronizedParameter objects</returns>
     public List<SynchronizedParameter> GetSynchronizedParameters()
     {
-        return this.m_SynchronizeParameters;
+        return m_SynchronizeParameters;
     }
 
     /// <summary>
@@ -166,16 +152,16 @@ public class PhotonAnimatorView : MonoBehaviour
     /// </summary>
     /// <param name="layerIndex">Index of the layer.</param>
     /// <returns>Disabled/Discrete/Continuous</returns>
-    public SynchronizeType GetLayerSynchronizeType(int layerIndex)
+    public SynchronizeType GetLayerSynchronizeType( int layerIndex )
     {
-        int index = this.m_SynchronizeLayers.FindIndex(item => item.LayerIndex == layerIndex);
+        int index = m_SynchronizeLayers.FindIndex( item => item.LayerIndex == layerIndex );
 
-        if (index == -1)
+        if( index == -1 )
         {
             return SynchronizeType.Disabled;
         }
 
-        return this.m_SynchronizeLayers[index].SynchronizeType;
+        return m_SynchronizeLayers[ index ].SynchronizeType;
     }
 
     /// <summary>
@@ -183,16 +169,16 @@ public class PhotonAnimatorView : MonoBehaviour
     /// </summary>
     /// <param name="name">The name of the parameter.</param>
     /// <returns>Disabled/Discrete/Continuous</returns>
-    public SynchronizeType GetParameterSynchronizeType(string name)
+    public SynchronizeType GetParameterSynchronizeType( string name )
     {
-        int index = this.m_SynchronizeParameters.FindIndex(item => item.Name == name);
+        int index = m_SynchronizeParameters.FindIndex( item => item.Name == name );
 
-        if (index == -1)
+        if( index == -1 )
         {
             return SynchronizeType.Disabled;
         }
 
-        return this.m_SynchronizeParameters[index].SynchronizeType;
+        return m_SynchronizeParameters[ index ].SynchronizeType;
     }
 
     /// <summary>
@@ -200,22 +186,22 @@ public class PhotonAnimatorView : MonoBehaviour
     /// </summary>
     /// <param name="layerIndex">Index of the layer.</param>
     /// <param name="synchronizeType">Disabled/Discrete/Continuous</param>
-    public void SetLayerSynchronized(int layerIndex, SynchronizeType synchronizeType)
+    public void SetLayerSynchronized( int layerIndex, SynchronizeType synchronizeType )
     {
-        if (Application.isPlaying == true)
+        if( Application.isPlaying == true )
         {
-            this.m_WasSynchronizeTypeChanged = true;
+            m_WasSynchronizeTypeChanged = true;
         }
 
-        int index = this.m_SynchronizeLayers.FindIndex(item => item.LayerIndex == layerIndex);
+        int index = m_SynchronizeLayers.FindIndex( item => item.LayerIndex == layerIndex );
 
-        if (index == -1)
+        if( index == -1 )
         {
-            this.m_SynchronizeLayers.Add(new SynchronizedLayer {LayerIndex = layerIndex, SynchronizeType = synchronizeType});
+            m_SynchronizeLayers.Add( new SynchronizedLayer { LayerIndex = layerIndex, SynchronizeType = synchronizeType } );
         }
         else
         {
-            this.m_SynchronizeLayers[index].SynchronizeType = synchronizeType;
+            m_SynchronizeLayers[ index ].SynchronizeType = synchronizeType;
         }
     }
 
@@ -223,247 +209,245 @@ public class PhotonAnimatorView : MonoBehaviour
     /// Sets the how a parameter should be synchronized
     /// </summary>
     /// <param name="name">The name of the parameter.</param>
-    /// <param name="type">The type of the parameter.</param>
     /// <param name="synchronizeType">Disabled/Discrete/Continuous</param>
-    public void SetParameterSynchronized(string name, ParameterType type, SynchronizeType synchronizeType)
+    public void SetParameterSynchronized( string name, ParameterType type, SynchronizeType synchronizeType )
     {
-        if (Application.isPlaying == true)
+        if( Application.isPlaying == true )
         {
-            this.m_WasSynchronizeTypeChanged = true;
+            m_WasSynchronizeTypeChanged = true;
         }
 
-        int index = this.m_SynchronizeParameters.FindIndex(item => item.Name == name);
+        int index = m_SynchronizeParameters.FindIndex( item => item.Name == name );
 
-        if (index == -1)
+        if( index == -1 )
         {
-            this.m_SynchronizeParameters.Add(new SynchronizedParameter {Name = name, Type = type, SynchronizeType = synchronizeType});
+            m_SynchronizeParameters.Add( new SynchronizedParameter { Name = name, Type = type, SynchronizeType = synchronizeType } );
         }
         else
         {
-            this.m_SynchronizeParameters[index].SynchronizeType = synchronizeType;
+            m_SynchronizeParameters[ index ].SynchronizeType = synchronizeType;
         }
     }
-
     #endregion
 
     #region Serialization
-
-    private void SerializeDataContinuously()
+    void SerializeDataContinuously()
     {
-        if (this.m_Animator == null)
+        if( m_Animator == null )
         {
             return;
         }
 
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            if (this.m_SynchronizeLayers[i].SynchronizeType == SynchronizeType.Continuous)
+            if( m_SynchronizeLayers[ i ].SynchronizeType == SynchronizeType.Continuous )
             {
-                this.m_StreamQueue.SendNext(this.m_Animator.GetLayerWeight(this.m_SynchronizeLayers[i].LayerIndex));
+                m_StreamQueue.SendNext( m_Animator.GetLayerWeight( m_SynchronizeLayers[ i ].LayerIndex ) );
             }
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            SynchronizedParameter parameter = this.m_SynchronizeParameters[i];
+            SynchronizedParameter parameter = m_SynchronizeParameters[ i ];
 
-            if (parameter.SynchronizeType == SynchronizeType.Continuous)
+            if( parameter.SynchronizeType == SynchronizeType.Continuous )
             {
-                switch (parameter.Type)
+                
+                switch( parameter.Type )
                 {
-                    case ParameterType.Bool:
-                        this.m_StreamQueue.SendNext(this.m_Animator.GetBool(parameter.Name));
-                        break;
-                    case ParameterType.Float:
-                        this.m_StreamQueue.SendNext(this.m_Animator.GetFloat(parameter.Name));
-                        break;
-                    case ParameterType.Int:
-                        this.m_StreamQueue.SendNext(this.m_Animator.GetInteger(parameter.Name));
-                        break;
-                    case ParameterType.Trigger:
+                case ParameterType.Bool:
+                    m_StreamQueue.SendNext( m_Animator.GetBool( parameter.Name ) );
+                    break;
+                case ParameterType.Float:
+                    m_StreamQueue.SendNext( m_Animator.GetFloat( parameter.Name ) );
+                    break;
+                case ParameterType.Int:
+                    m_StreamQueue.SendNext( m_Animator.GetInteger( parameter.Name ) );
+                    break;
+                case ParameterType.Trigger:
 
-                        break;
+                    break;
                 }
             }
         }
     }
 
-    private void DeserializeDataContinuously()
+    void DeserializeDataContinuously()
     {
-        if (this.m_StreamQueue.HasQueuedObjects() == false)
+        if( m_StreamQueue.HasQueuedObjects() == false )
         {
             return;
         }
 
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            if (this.m_SynchronizeLayers[i].SynchronizeType == SynchronizeType.Continuous)
+            if( m_SynchronizeLayers[ i ].SynchronizeType == SynchronizeType.Continuous )
             {
-                this.m_Animator.SetLayerWeight(this.m_SynchronizeLayers[i].LayerIndex, (float)this.m_StreamQueue.ReceiveNext());
+                m_Animator.SetLayerWeight( m_SynchronizeLayers[ i ].LayerIndex, (float)m_StreamQueue.ReceiveNext() );
             }
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            SynchronizedParameter parameter = this.m_SynchronizeParameters[i];
+            SynchronizedParameter parameter = m_SynchronizeParameters[ i ];
 
-            if (parameter.SynchronizeType == SynchronizeType.Continuous)
+            if( parameter.SynchronizeType == SynchronizeType.Continuous )
             {
-                switch (parameter.Type)
+                switch( parameter.Type )
                 {
-                    case ParameterType.Bool:
-                        this.m_Animator.SetBool(parameter.Name, (bool)this.m_StreamQueue.ReceiveNext());
-                        break;
-                    case ParameterType.Float:
-                        this.m_Animator.SetFloat(parameter.Name, (float)this.m_StreamQueue.ReceiveNext());
-                        break;
-                    case ParameterType.Int:
-                        this.m_Animator.SetInteger(parameter.Name, (int)this.m_StreamQueue.ReceiveNext());
-                        break;
-                    case ParameterType.Trigger:
+                case ParameterType.Bool:
+                    m_Animator.SetBool( parameter.Name, (bool)m_StreamQueue.ReceiveNext() );
+                    break;
+                case ParameterType.Float:
+                    m_Animator.SetFloat( parameter.Name, (float)m_StreamQueue.ReceiveNext() );
+                    break;
+                case ParameterType.Int:
+                    m_Animator.SetInteger( parameter.Name, (int)m_StreamQueue.ReceiveNext() );
+                    break;
+                case ParameterType.Trigger:
 
-                        break;
+                    break;
                 }
             }
         }
     }
 
-    private void SerializeDataDiscretly(PhotonStream stream)
+    void SerializeDataDiscretly( PhotonStream stream )
     {
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            if (this.m_SynchronizeLayers[i].SynchronizeType == SynchronizeType.Discrete)
+            if( m_SynchronizeLayers[ i ].SynchronizeType == SynchronizeType.Discrete )
             {
-                stream.SendNext(this.m_Animator.GetLayerWeight(this.m_SynchronizeLayers[i].LayerIndex));
+                stream.SendNext( m_Animator.GetLayerWeight( m_SynchronizeLayers[ i ].LayerIndex ) );
             }
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            SynchronizedParameter parameter = this.m_SynchronizeParameters[i];
+            SynchronizedParameter parameter = m_SynchronizeParameters[ i ];
 
-            if (parameter.SynchronizeType == SynchronizeType.Discrete)
+            if( parameter.SynchronizeType == SynchronizeType.Discrete )
             {
-                switch (parameter.Type)
+                switch( parameter.Type )
                 {
-                    case ParameterType.Bool:
-                        stream.SendNext(this.m_Animator.GetBool(parameter.Name));
-                        break;
-                    case ParameterType.Float:
-                        stream.SendNext(this.m_Animator.GetFloat(parameter.Name));
-                        break;
-                    case ParameterType.Int:
-                        stream.SendNext(this.m_Animator.GetInteger(parameter.Name));
-                        break;
-                    case ParameterType.Trigger:
+                case ParameterType.Bool:
+                    stream.SendNext( m_Animator.GetBool( parameter.Name ) );
+                    break;
+                case ParameterType.Float:
+                    stream.SendNext( m_Animator.GetFloat( parameter.Name ) );
+                    break;
+                case ParameterType.Int:
+                    stream.SendNext( m_Animator.GetInteger( parameter.Name ) );
+                    break;
+                case ParameterType.Trigger:
 
-                        break;
+                    break;
                 }
             }
         }
     }
 
-    private void DeserializeDataDiscretly(PhotonStream stream)
+    void DeserializeDataDiscretly( PhotonStream stream )
     {
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            if (this.m_SynchronizeLayers[i].SynchronizeType == SynchronizeType.Discrete)
+            if( m_SynchronizeLayers[ i ].SynchronizeType == SynchronizeType.Discrete )
             {
-                this.m_Animator.SetLayerWeight(this.m_SynchronizeLayers[i].LayerIndex, (float)stream.ReceiveNext());
+                m_Animator.SetLayerWeight( m_SynchronizeLayers[ i ].LayerIndex, (float)stream.ReceiveNext() );
             }
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            SynchronizedParameter parameter = this.m_SynchronizeParameters[i];
+            SynchronizedParameter parameter = m_SynchronizeParameters[ i ];
 
-            if (parameter.SynchronizeType == SynchronizeType.Discrete)
+            if( parameter.SynchronizeType == SynchronizeType.Discrete )
             {
-                switch (parameter.Type)
+                switch( parameter.Type )
                 {
-                    case ParameterType.Bool:
-                        if (stream.PeekNext() is bool == false)
-                        {
-                            return;
-                        }
+                case ParameterType.Bool:
+                    if( stream.PeekNext() is bool == false )
+                    {
+                        return;
+                    }
 
-                        this.m_Animator.SetBool(parameter.Name, (bool)stream.ReceiveNext());
-                        break;
-                    case ParameterType.Float:
-                        if (stream.PeekNext() is float == false)
-                        {
-                            return;
-                        }
+                    m_Animator.SetBool( parameter.Name, (bool)stream.ReceiveNext() );
+                    break;
+                case ParameterType.Float:
+                    if( stream.PeekNext() is float == false )
+                    {
+                        return;
+                    }
 
-                        this.m_Animator.SetFloat(parameter.Name, (float)stream.ReceiveNext());
-                        break;
-                    case ParameterType.Int:
-                        if (stream.PeekNext() is int == false)
-                        {
-                            return;
-                        }
+                    m_Animator.SetFloat( parameter.Name, (float)stream.ReceiveNext() );
+                    break;
+                case ParameterType.Int:
+                    if( stream.PeekNext() is int == false )
+                    {
+                        return;
+                    }
 
-                        this.m_Animator.SetInteger(parameter.Name, (int)stream.ReceiveNext());
-                        break;
-                    case ParameterType.Trigger:
+                    m_Animator.SetInteger( parameter.Name, (int)stream.ReceiveNext() );
+                    break;
+                case ParameterType.Trigger:
 
-                        break;
+                    break;
                 }
             }
         }
     }
 
-    private void SerializeSynchronizationTypeState(PhotonStream stream)
+    void SerializeSynchronizationTypeState( PhotonStream stream )
     {
-        byte[] states = new byte[this.m_SynchronizeLayers.Count + this.m_SynchronizeParameters.Count];
+        byte[] states = new byte[ m_SynchronizeLayers.Count + m_SynchronizeParameters.Count ];
 
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            states[i] = (byte)this.m_SynchronizeLayers[i].SynchronizeType;
+            states[ i ] = (byte)m_SynchronizeLayers[ i ].SynchronizeType;
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            states[this.m_SynchronizeLayers.Count + i] = (byte)this.m_SynchronizeParameters[i].SynchronizeType;
+            states[ m_SynchronizeLayers.Count + i ] = (byte)m_SynchronizeParameters[ i ].SynchronizeType;
         }
 
-        stream.SendNext(states);
+        stream.SendNext( states );
     }
 
-    private void DeserializeSynchronizationTypeState(PhotonStream stream)
+    void DeserializeSynchronizationTypeState( PhotonStream stream )
     {
         byte[] state = (byte[])stream.ReceiveNext();
 
-        for (int i = 0; i < this.m_SynchronizeLayers.Count; ++i)
+        for( int i = 0; i < m_SynchronizeLayers.Count; ++i )
         {
-            this.m_SynchronizeLayers[i].SynchronizeType = (SynchronizeType)state[i];
+            m_SynchronizeLayers[ i ].SynchronizeType = (SynchronizeType)state[ i ];
         }
 
-        for (int i = 0; i < this.m_SynchronizeParameters.Count; ++i)
+        for( int i = 0; i < m_SynchronizeParameters.Count; ++i )
         {
-            this.m_SynchronizeParameters[i].SynchronizeType = (SynchronizeType)state[this.m_SynchronizeLayers.Count + i];
+            m_SynchronizeParameters[ i ].SynchronizeType = (SynchronizeType)state[ m_SynchronizeLayers.Count + i ];
         }
     }
 
-    private void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    void OnPhotonSerializeView( PhotonStream stream, PhotonMessageInfo info )
     {
-        if (this.m_Animator == null)
+        if( m_Animator == null )
         {
             return;
         }
 
-        if (stream.isWriting == true)
+        if( stream.isWriting == true )
         {
-            if (this.m_WasSynchronizeTypeChanged == true)
+            if( m_WasSynchronizeTypeChanged == true )
             {
-                this.m_StreamQueue.Reset();
-                SerializeSynchronizationTypeState(stream);
+                m_StreamQueue.Reset();
+                SerializeSynchronizationTypeState( stream );
 
-                this.m_WasSynchronizeTypeChanged = false;
+                m_WasSynchronizeTypeChanged = false;
             }
 
-            this.m_StreamQueue.Serialize(stream);
-            SerializeDataDiscretly(stream);
+            m_StreamQueue.Serialize( stream );
+            SerializeDataDiscretly( stream );
         }
         else
         {
@@ -475,16 +459,15 @@ public class PhotonAnimatorView : MonoBehaviour
             else
 #endif
             {
-                if (stream.PeekNext() is byte[])
+                if( stream.PeekNext() is byte[] )
                 {
-                    DeserializeSynchronizationTypeState(stream);
+                    DeserializeSynchronizationTypeState( stream );
                 }
 
-                this.m_StreamQueue.Deserialize(stream);
-                DeserializeDataDiscretly(stream);
+                m_StreamQueue.Deserialize( stream );
+                DeserializeDataDiscretly( stream );
             }
         }
     }
-
     #endregion
 }

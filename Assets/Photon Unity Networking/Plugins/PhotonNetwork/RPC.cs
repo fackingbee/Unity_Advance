@@ -1,12 +1,18 @@
 ﻿
 #pragma warning disable 1587
 /// \file
-/// <summary>Reimplements a RPC Attribute, as it's no longer in all versions of the UnityEngine assembly.</summary>
+/// <summary>Implements a RPC Attribute for platforms that don't have it in UnityEngine.</summary>
 #pragma warning restore 1587
+
+#if !UNITY_EDITOR && (UNITY_WINRT || UNITY_WP8 || UNITY_PS3 || UNITY_WIIU)
 
 using System;
 
-/// <summary>Replacement for RPC attribute with different name. Used to flag methods as remote-callable.</summary>
-public class PunRPC : Attribute
+
+namespace UnityEngine
 {
+    public class RPC : Attribute
+    {
+    }
 }
+#endif

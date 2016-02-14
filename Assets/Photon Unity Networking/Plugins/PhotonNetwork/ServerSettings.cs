@@ -29,19 +29,6 @@ public class Region
         return code;
     }
 
-    internal static CloudRegionFlag ParseFlag(string codeAsString)
-    {
-        codeAsString = codeAsString.ToLower();
-
-        CloudRegionFlag code = 0;
-        if (Enum.IsDefined(typeof(CloudRegionFlag), codeAsString))
-        {
-            code = (CloudRegionFlag)Enum.Parse(typeof(CloudRegionFlag), codeAsString);
-        }
-
-        return code;
-    }
-
     public override string ToString()
     {
         return string.Format("'{0}' \t{1}ms \t{2}", this.Code, this.Ping, this.HostAndPort);
@@ -55,7 +42,7 @@ public class Region
 [Serializable]
 public class ServerSettings : ScriptableObject
 {
-    public enum HostingOption { NotSet = 0, PhotonCloud = 1, SelfHosted = 2, OfflineMode = 3, BestRegion = 4 }
+    public enum HostingOption { NotSet, PhotonCloud, SelfHosted, OfflineMode, BestRegion }
     public HostingOption HostType = HostingOption.NotSet;
     public ConnectionProtocol Protocol = ConnectionProtocol.Udp;
 
@@ -63,12 +50,9 @@ public class ServerSettings : ScriptableObject
     public string ServerAddress = "";     // the address to be used (including region-suffix)
     public int ServerPort = 5055;
 
-    public string AppID = "";
     public CloudRegionCode PreferredRegion;
-    public CloudRegionFlag EnabledRegions = (CloudRegionFlag)(-1);
-
-    public bool JoinLobby;
-    public bool EnableLobbyStatistics;
+    public string AppID = "";
+    public bool PingCloudServersOnAwake = false;
 
     public List<string> RpcList = new List<string>();   // set by scripts and or via Inspector
 
@@ -76,7 +60,7 @@ public class ServerSettings : ScriptableObject
     public bool DisableAutoOpenWizard;
 
 
-    public void UseCloudBestRegion(string cloudAppid)
+    public void UseCloudBestResion(string cloudAppid)
     {
         this.HostType = HostingOption.BestRegion;
         this.AppID = cloudAppid;

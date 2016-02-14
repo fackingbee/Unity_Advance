@@ -19,7 +19,7 @@ namespace ExitGames.Client.Photon
     using System.Threading;
 
     /// <summary> Internal class to encapsulate the network i/o functionality for the realtime libary.</summary>
-    internal class SocketUdp : IPhotonSocket, IDisposable
+    internal class SocketUdp : IPhotonSocket
     {
         private Socket sock;
 
@@ -34,26 +34,6 @@ namespace ExitGames.Client.Photon
 
             this.Protocol = ConnectionProtocol.Udp;
             this.PollReceive = false;
-        }
-
-        public void Dispose()
-        {
-            this.State = PhotonSocketState.Disconnecting;
-
-            if (this.sock != null)
-            {
-                try
-                {
-                    if (this.sock.Connected) this.sock.Close();
-                }
-                catch (Exception ex)
-                {
-                    this.EnqueueDebugReturn(DebugLevel.INFO, "Exception in Dispose(): " + ex);
-                }
-            }
-
-            this.sock = null;
-            this.State = PhotonSocketState.Disconnected;
         }
 
         public override bool Connect()
@@ -81,7 +61,7 @@ namespace ExitGames.Client.Photon
         {
             if (this.ReportDebugOfLevel(DebugLevel.INFO))
             {
-                this.EnqueueDebugReturn(DebugLevel.INFO, "Disconnect()");
+                this.EnqueueDebugReturn(DebugLevel.INFO, "CSharpSocket.Disconnect()");
             }
 
             this.State = PhotonSocketState.Disconnecting;
@@ -121,12 +101,8 @@ namespace ExitGames.Client.Photon
                 {
                     sock.Send(data, 0, length, SocketFlags.None);
                 }
-                catch (Exception e)
+                catch
                 {
-                    if (this.ReportDebugOfLevel(DebugLevel.ERROR))
-                    {
-                        this.EnqueueDebugReturn(DebugLevel.ERROR, "Cannot send to: " + this.ServerAddress + ". " + e.Message);
-                    }
                     return PhotonSocketError.Exception;
                 }
             }
@@ -158,7 +134,7 @@ namespace ExitGames.Client.Photon
             {
                 if (this.ReportDebugOfLevel(DebugLevel.ERROR))
                 {
-                    this.Listener.DebugReturn(DebugLevel.ERROR, "Connect() to '" + this.ServerAddress + "' failed: " + se.ToString());
+                    this.Listener.DebugReturn(DebugLevel.ERROR, "Connect() failed: " + se.ToString());
                 }
 
                 this.HandleException(StatusCode.SecurityExceptionOnConnect);
@@ -168,7 +144,7 @@ namespace ExitGames.Client.Photon
             {
                 if (this.ReportDebugOfLevel(DebugLevel.ERROR))
                 {
-                    this.Listener.DebugReturn(DebugLevel.ERROR, "Connect() to '" + this.ServerAddress + "' failed: " + se.ToString());
+                    this.Listener.DebugReturn(DebugLevel.ERROR, "Connect() failed: " + se.ToString());
                 }
 
                 this.HandleException(StatusCode.ExceptionOnConnect);
@@ -198,7 +174,7 @@ namespace ExitGames.Client.Photon
                     {
                         if (this.ReportDebugOfLevel(DebugLevel.ERROR))
                         {
-                            this.EnqueueDebugReturn(DebugLevel.ERROR, "Receive issue. State: " + this.State + ". Server: '" + this.ServerAddress + "' Exception: " + e);
+                            this.EnqueueDebugReturn(DebugLevel.ERROR, "Receive issue. State: " + this.State + " Exception: " + e);
                         }
 
                         this.HandleException(StatusCode.ExceptionOnReceive);

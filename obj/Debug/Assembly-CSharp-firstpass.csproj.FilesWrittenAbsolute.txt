@@ -6,7 +6,6 @@
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.UI.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Networking.dll
-/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/websocket-sharp.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Photon3Unity3D.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.iOS.Extensions.Xcode.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Mono.Cecil.dll

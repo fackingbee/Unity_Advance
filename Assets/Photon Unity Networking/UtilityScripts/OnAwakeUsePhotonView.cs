@@ -2,7 +2,6 @@ using ExitGames.Client.Photon;
 using UnityEngine;
 using System.Collections;
 
-
 [RequireComponent(typeof(PhotonView))]
 public class OnAwakeUsePhotonView : Photon.MonoBehaviour {
 
@@ -30,13 +29,13 @@ public class OnAwakeUsePhotonView : Photon.MonoBehaviour {
         this.photonView.RPC("OnAwakeRPC", PhotonTargets.All, (byte)1);
     }
 	
-    [PunRPC]
+    [RPC]
     public void OnAwakeRPC()
     {
         Debug.Log("RPC: 'OnAwakeRPC' PhotonView: " + this.photonView);
     }
 
-    [PunRPC]
+    [RPC]
     public void OnAwakeRPC(byte myParameter)
     {
         Debug.Log("RPC: 'OnAwakeRPC' Parameter: " + myParameter + " PhotonView: " + this.photonView);

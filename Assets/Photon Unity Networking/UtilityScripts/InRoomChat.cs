@@ -68,7 +68,7 @@ public class InRoomChat : Photon.MonoBehaviour
         GUILayout.EndArea();
     }
 
-    [PunRPC]
+    [RPC]
     public void Chat(string newLine, PhotonMessageInfo mi)
     {
         string senderName = "anonymous";

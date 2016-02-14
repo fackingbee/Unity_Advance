@@ -77,7 +77,7 @@ public class Room : RoomInfo
 
             if (value != this.maxPlayersField && !PhotonNetwork.offlineMode)
             {
-                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GamePropertyKey.MaxPlayers, (byte)value } }, expectedProperties: null, webForward: false);
+                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GameProperties.MaxPlayers, (byte)value } }, true, (byte)0, null);
             }
 
             this.maxPlayersField = (byte)value;
@@ -108,7 +108,7 @@ public class Room : RoomInfo
 
             if (value != this.openField && !PhotonNetwork.offlineMode)
             {
-                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GamePropertyKey.IsOpen, value } }, expectedProperties: null, webForward: false);
+                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GameProperties.IsOpen, value } }, true, (byte)0, null);
             }
 
             this.openField = value;
@@ -136,7 +136,7 @@ public class Room : RoomInfo
 
             if (value != this.visibleField && !PhotonNetwork.offlineMode)
             {
-                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GamePropertyKey.IsVisible, value } }, expectedProperties: null, webForward: false);
+                PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(new Hashtable() { { GameProperties.IsVisible, value } }, true, (byte)0, null);
             }
 
             this.visibleField = value;
@@ -159,21 +159,6 @@ public class Room : RoomInfo
         }
     }
 
-	/// <summary>The ID (actorNumber) of the current Master Client of this room.</summary>
-    /// <remarks>See also: PhotonNetwork.masterClient.</remarks>
-    protected internal int masterClientId
-    {
-        get
-        {
-            return this.masterClientIdField;
-        }
-        set
-        {
-            this.masterClientIdField = value;
-        }
-    }
-
-
     internal Room(string roomName, RoomOptions options) : base(roomName, null)
     {
         if (options == null)
@@ -186,85 +171,63 @@ public class Room : RoomInfo
         this.maxPlayersField = (byte)options.maxPlayers;
         this.autoCleanUpField = false;  // defaults to false, unless set to true when room gets created.
 
-        this.InternalCacheProperties(options.customRoomProperties);
+        this.CacheProperties(options.customRoomProperties);
         this.propertiesListedInLobby = options.customRoomPropertiesForLobby;
     }
 
-
     /// <summary>
-    /// Updates the current room's Custom Properties with new/updated key-values. 
+    /// Updates and synchronizes the named properties of this Room with the values of propertiesToSet.
     /// </summary>
     /// <remarks>
-    /// Custom Properties are a key-value set (Hashtable) which is available to all players in a room.
-    /// They can relate to the room or individual players and are useful when only the current value 
-    /// of something is of interest. For example: The map of a room.
-    /// All keys must be strings.
-    /// 
-    /// The Room and the PhotonPlayer class both have SetCustomProperties methods.
-    /// Also, both classes offer access to current key-values by: customProperties.
-    /// 
-    /// Always use SetCustomProperties to change values. 
+    /// Any player can set a Room's properties. Room properties are available until changed, deleted or
+    /// until the last player leaves the room.
+    /// Access them by: Room.CustomProperties (read-only!).
+    ///
     /// To reduce network traffic, set only values that actually changed.
+    ///
     /// New properties are added, existing values are updated.
     /// Other values will not be changed, so only provide values that changed or are new.
-    /// 
     /// To delete a named (custom) property of this room, use null as value.
-    /// 
-    /// Locally, SetCustomProperties will update it's cache without delay. 
-    /// Other clients are updated through Photon (the server) with a fitting operation.
-    /// 
-    /// <b>Check and Swap</b>
-    /// 
-    /// SetCustomProperties have the option to do a server-side Check-And-Swap (CAS): 
-    /// Values only get updated if the expected values are correct.
-    /// The expectedValues can be different key/values than the propertiesToSet. So you can 
-    /// check some key and set another key's value (if the check succeeds).
-    /// 
-    /// If the client's knowledge of properties is wrong or outdated, it can't set values with CAS.
-    /// This can be useful to keep players from concurrently setting values. For example: If all players
-    /// try to pickup some card or item, only one should get it. With CAS, only the first SetProperties 
-    /// gets executed server-side and any other (sent at the same time) fails.
-    /// 
-    /// The server will broadcast successfully changed values and the local "cache" of customProperties 
-    /// only gets updated after a roundtrip (if anything changed).
-    /// 
-    /// You can do a "webForward": Photon will send the changed properties to a WebHook defined 
-    /// for your application.
-    /// 
-    /// <b>OfflineMode</b>
-    /// 
-    /// While PhotonNetwork.offlineMode is true, the expectedValues and webForward parameters are ignored.
-    /// In OfflineMode, the local customProperties values are immediately updated (without the roundtrip).
+    /// Only string-typed keys are applied (everything else is ignored).
+    ///
+    /// Local cache is updated immediately, other clients are updated through Photon with a fitting operation.
     /// </remarks>
-    /// <param name="propertiesToSet">The new properties to be set. </param>
-    /// <param name="expectedValues">At least one property key/value set to check server-side. Key and value must be correct. Ignored in OfflineMode.</param>
-    /// <param name="webForward">Set to true, to forward the set properties to a WebHook, defined for this app (in Dashboard). Ignored in OfflineMode.</param>
-    public void SetCustomProperties(Hashtable propertiesToSet, Hashtable expectedValues = null, bool webForward = false)
+    /// <param name="propertiesToSet">Hashtable of props to udpate, set and sync. See description.</param>
+    public void SetCustomProperties(Hashtable propertiesToSet)
     {
         if (propertiesToSet == null)
         {
             return;
         }
 
+        // merge (delete null-values)
+        this.customProperties.MergeStringKeys(propertiesToSet); // includes a Equals check (simplifying things)
+        this.customProperties.StripKeysWithNullValues();
+
+
+        // send (sync) these new values
         Hashtable customProps = propertiesToSet.StripToStringKeys() as Hashtable;
-        Hashtable customPropsToCheck = expectedValues.StripToStringKeys() as Hashtable;
+        if (!PhotonNetwork.offlineMode)
+        {
+            PhotonNetwork.networkingPeer.OpSetCustomPropertiesOfRoom(customProps, true, 0);
+        }
+        NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonCustomRoomPropertiesChanged, propertiesToSet);
+    }
 
-
-        // no expected values -> set and callback
-        bool noCas = customPropsToCheck == null || customPropsToCheck.Count == 0;
-
-
+    public void SetCustomProperties(Hashtable propertiesToSet, Hashtable expectedValues)
+    {
+        if (propertiesToSet == null)
+        {
+            return;
+        }
 
         if (!PhotonNetwork.offlineMode)
         {
-            PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(customProps, customPropsToCheck, webForward);
+            Hashtable customProps = propertiesToSet.StripToStringKeys() as Hashtable;
+            Hashtable customPropsToCheck = expectedValues.StripToStringKeys() as Hashtable;
+            PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(customProps, false, 0, customPropsToCheck);  // broadcast is always on for CAS
         }
-
-        if (PhotonNetwork.offlineMode || noCas)
-        {
-            this.InternalCacheProperties(customProps);
-            NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonCustomRoomPropertiesChanged, customProps);
-        }
+        NetworkingPeer.SendMonoMessage(PhotonNetworkingMessage.OnPhotonCustomRoomPropertiesChanged, propertiesToSet);
     }
 
     /// <summary>
@@ -277,8 +240,8 @@ public class Room : RoomInfo
     public void SetPropertiesListedInLobby(string[] propsListedInLobby)
     {
         Hashtable customProps = new Hashtable();
-        customProps[GamePropertyKey.PropsListedInLobby] = propsListedInLobby;
-        PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(customProps, expectedProperties: null, webForward: false);
+        customProps[GameProperties.PropsListedInLobby] = propsListedInLobby;
+        PhotonNetwork.networkingPeer.OpSetPropertiesOfRoom(customProps, false, 0, null);
 
         this.propertiesListedInLobby = propsListedInLobby;
     }

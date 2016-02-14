@@ -74,7 +74,7 @@ public class PunTeams : MonoBehaviour
 }
 
 /// <summary>Extension used for PunTeams and PhotonPlayer class. Wraps access to the player's custom property.</summary>
-public static class TeamExtensions
+static class TeamExtensions
 {
     /// <summary>Extension for PhotonPlayer class to wrap up access to the player's custom property.</summary>
     /// <returns>PunTeam.Team.none if no team was found (yet).</returns>
