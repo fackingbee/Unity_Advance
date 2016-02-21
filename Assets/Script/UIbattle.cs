@@ -83,8 +83,14 @@ public class UIbattle : MonoBehaviour {
 				variableManage.movingYaxis = 0;
 			}
 		}
+
+		// 画面表示
+		healthText.text = "HP:" + variableManage.currentHealth;
+
+
 //		// デバック用 後で削除すること！
 //		infoText.text = "X : " + variableManage.movingXaxis + "Y : " + variableManage.movingYaxis;
+
 	}
 
 	//コンフィグ表示用ボタン

@@ -4,6 +4,7 @@ using System.Collections;
 public class gameManage : MonoBehaviour {
 
 	void Start () {
+		
 	// 初期設定
 		Screen.sleepTimeout = SleepTimeout.NeverSleep;
 		//PhotonRealtimeのサーバーへ接続、ロビーへ入室
@@ -31,11 +32,11 @@ public class gameManage : MonoBehaviour {
 		PhotonNetwork.CreateRoom (null);
 	}
 
-		//ルームへ入室した
-		void OnJoinedRoom(){
+	//ルームへ入室した
+	void OnJoinedRoom(){
 			// オブジェクトを読み込み
 		GameObject myPlayer = PhotonNetwork.Instantiate("character/t01", new Vector3(440f,30f,-560f),Quaternion.identity,0);
-		}
+	}
 
 	// Photon Realtimeとの接続あ切断された場合
 	void OnConnectionFail(){
