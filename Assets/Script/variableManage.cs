@@ -7,6 +7,9 @@ public class variableManage : MonoBehaviour {
 	static public int movingYaxis;
 	static public int movingXaxis;
 
+	// 攻撃用変数
+	static public bool fireWeapon;
+
 	void Start () {
 		// 変数の初期化 //
 		initializeVariable();
@@ -15,6 +18,7 @@ public class variableManage : MonoBehaviour {
 	static public void initializeVariable(){
 		movingXaxis = 0;
 		movingYaxis = 0;
+		fireWeapon = false;
 	}
 
 }

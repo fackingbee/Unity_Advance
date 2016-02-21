@@ -101,4 +101,9 @@ public class UIbattle : MonoBehaviour {
 		Application.LoadLevel("mainMenu");
 	}
 
+	// 武器発射ボタン
+	public void fireWep(){
+		variableManage.fireWeapon = true;
+	}
+
 }

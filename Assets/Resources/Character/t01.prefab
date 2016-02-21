@@ -200,6 +200,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &124014
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 471474}
+  m_Layer: 0
+  m_Name: mouse
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &124198
 GameObject:
   m_ObjectHideFlags: 1
@@ -495,7 +510,9 @@ GameObject:
   - 114: {fileID: 11438102}
   - 114: {fileID: 11424848}
   - 114: {fileID: 11485994}
-  m_Layer: 0
+  - 135: {fileID: 13541766}
+  - 114: {fileID: 11476498}
+  m_Layer: 8
   m_Name: t01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1322,7 +1339,8 @@ Transform:
   m_LocalRotation: {x: -2.09547579e-08, y: 0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: .207558155, z: 1.75999999}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 471474}
   m_Father: {fileID: 488078}
   m_RootOrder: 1
 --- !u!4 &436578
@@ -1640,6 +1658,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 405006}
   m_RootOrder: 2
+--- !u!4 &471474
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124014}
+  m_LocalRotation: {x: 2.09547579e-08, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.00999999978, y: .0199999996, z: 4.13999987}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 436544}
+  m_RootOrder: 0
 --- !u!4 &472964
 Transform:
   m_ObjectHideFlags: 1
@@ -3592,7 +3622,7 @@ MonoBehaviour:
   group: 0
   prefixBackup: -1
   observed: {fileID: 0}
-  synchronization: 3
+  synchronization: 1
   onSerializeTransformOption: 3
   onSerializeRigidBodyOption: 2
   ownershipTransfer: 0
@@ -3619,6 +3649,24 @@ MonoBehaviour:
   myRigid: {fileID: 5423420}
   myPV: {fileID: 11424848}
   myCam: {fileID: 2076042}
+--- !u!114 &11476498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cce8d0abe72415a9282a32272ba108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wep01atkPow: 3000
+  wep01rate: 5
+  wep01noa: 20
+  wep01spd: 380
+  wep01name: Misc/mainShell
+  myPV: {fileID: 11424848}
+  fireMouse: {fileID: 124014}
 --- !u!114 &11485994
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3709,6 +3757,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: .800000012
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &13541766
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 146010}
+  m_Material: {fileID: 13400000, guid: ed8e8a69af565024f8b635f7ab1485dd, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: -1.13999999, y: 2.0999999, z: -.300000012}
 --- !u!135 &13551882
 SphereCollider:
   m_ObjectHideFlags: 1

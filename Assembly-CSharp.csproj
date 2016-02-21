@@ -107,7 +107,9 @@
      <Compile Include="Assets\Script\UImainMenu.cs" />
      <Compile Include="Assets\Script\characterMove.cs" />
      <Compile Include="Assets\Script\gameManage.cs" />
+     <Compile Include="Assets\Script\mainShell.cs" />
      <Compile Include="Assets\Script\variableManage.cs" />
+     <Compile Include="Assets\Script\weaponManage.cs" />
      <Compile Include="Assets\Yama_Script\Old\Cube.cs" />
      <Compile Include="Assets\Yama_Script\Old\manage.cs" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
