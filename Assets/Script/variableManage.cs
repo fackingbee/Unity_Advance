@@ -15,8 +15,22 @@ public class variableManage : MonoBehaviour {
 	// 機体データ用変数
 	static public float currentHealth;
 
+	// ゲーム管理用変数
+	static public int myTeamID;
+
 	// ほか
 	static public bool controlLock;
+
+	// 勝敗用変数
+	static public bool finishedGame;//勝敗あ確定されたか
+	static public int team1Rest;//チーム１の残り撃破数
+	static public int team2Rest;// チーム２の残り撃破数
+	static public float base1Rest;// チーム１の拠点の残りHP
+	static public float base2Rest;// チーム２の拠点の残りHP
+	static public float timeRest;//ゲームの残り時間
+	static public int gameResult; // 1-teamID=1の勝利、２−teamID＝２の勝利
+
+
 
 	void Start () {
 		// 変数の初期化 //
@@ -31,8 +45,20 @@ public class variableManage : MonoBehaviour {
 
 		controlLock = false;
 
+		myTeamID = 0;
+
 		// 試合開始直後に破損しないように０にしない
 		currentHealth = 10f;
+
+		// 勝敗用
+		finishedGame = false;
+		team1Rest = 20;
+		team2Rest = 20;
+		base1Rest = 99999f;
+		base2Rest = 99999f;
+		timeRest = 400f;
+		gameResult = 0;
+
 
 	}
 

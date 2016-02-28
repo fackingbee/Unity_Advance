@@ -38,4 +38,11 @@ MonoBehaviour:
   - PunRespawn
   - RequestForPickupTimes
   - fireBullet
+  - allocateTeam
+  - syncMyID
+  - sendCuurentStatus
+  - sendDestruction
+  - syncFinished
+  - sendCurentStatus
+  - sendCurrentStatus
   DisableAutoOpenWizard: 0

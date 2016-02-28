@@ -60,8 +60,11 @@ public class weaponManage : MonoBehaviour {
 			if(lockCalcTimer > 0.5f){			//&gtは＞のこと。C＃では使わない
 				lockCalcTimer = 0f;
 
+				// ターゲット格納
+
+
 				// ターゲット格納（暫定的に全オブジェクト対象）
-				GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("Player");
+				GameObject[] allEnemy = GameObject.FindGameObjectsWithTag("enemy");
 
 				// ロックオンを解除する
 				variableManage.lockoned = false;

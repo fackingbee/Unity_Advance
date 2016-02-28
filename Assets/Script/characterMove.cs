@@ -79,6 +79,7 @@ public class characterMove : MonoBehaviour {
 				revivalTimer = 0f;
 				variableManage.controlLock = false;
 				variableManage.currentHealth = maxHealth;
+				transform.position = myRespawnPos ();
 			}
 		}
 
@@ -160,4 +161,24 @@ public class characterMove : MonoBehaviour {
 			hitObject = col.gameObject;
 		}
 	}
+
+	// 再出撃時の復帰位置を計算
+	Vector3 myRespawnPos(){
+		Vector2 rndPos = Vector2.zero;
+		while(true){
+			rndPos = Random.insideUnitCircle * 150f;
+			if(rndPos.x < -20f){
+				if(rndPos.y > 20f){
+					break;
+				}
+			}
+		}
+		Vector3 returnPos = new Vector3 ((592f + rndPos.x), 0f, (-592 + rndPos.y));
+		if(variableManage.myTeamID == 2){
+			returnPos *= -1.0f;
+		}
+		returnPos = new Vector3 (returnPos.x, 24f, returnPos.z);
+		return returnPos;
+	}
+
 }
