@@ -17,6 +17,7 @@ public class variableManage : MonoBehaviour {
 
 	// ゲーム管理用変数
 	static public int myTeamID;
+	static public bool mapEnabled;
 
 	// ほか
 	static public bool controlLock;
@@ -29,7 +30,6 @@ public class variableManage : MonoBehaviour {
 	static public float base2Rest;// チーム２の拠点の残りHP
 	static public float timeRest;//ゲームの残り時間
 	static public int gameResult; // 1-teamID=1の勝利、２−teamID＝２の勝利
-
 
 
 	void Start () {
@@ -47,6 +47,8 @@ public class variableManage : MonoBehaviour {
 
 		myTeamID = 0;
 
+		mapEnabled = false;
+
 		// 試合開始直後に破損しないように０にしない
 		currentHealth = 10f;
 
@@ -58,7 +60,6 @@ public class variableManage : MonoBehaviour {
 		base2Rest = 99999f;
 		timeRest = 400f;
 		gameResult = 0;
-
 
 	}
 

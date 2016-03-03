@@ -131,9 +131,19 @@ public class UIbattle : MonoBehaviour {
 		Application.LoadLevel("mainMenu");
 	}
 
-	// 武器発射ボタン
+	//武器発射ボタン
 	public void fireWep(){
 		variableManage.fireWeapon = true;
 	}
 
+	//マップ表示切替ボタン
+	public void showMap(){
+		if (variableManage.mapEnabled) {
+			mapUIobj.SetActive (false);
+			variableManage.mapEnabled = false;
+		} else {
+			mapUIobj.SetActive (true);
+			variableManage.mapEnabled = true;
+		}
+	}
 }
