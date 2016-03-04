@@ -25,7 +25,6 @@ public class characterMove : MonoBehaviour {
 			myRigid.isKinematic = true;
 			myCam.transform.gameObject.SetActive (false);
 			Destroy (this);
-
 		}
 
 		// ほか
@@ -55,19 +54,15 @@ public class characterMove : MonoBehaviour {
 
 		// 被弾処理
 		if (hitObject != null){
-
 			// スクリプトを取得
 			mainShell hitShell = hitObject.GetComponent<mainShell>();
-
 			// ダメージ
 			variableManage.currentHealth -= hitShell.pow;
 			if (variableManage.currentHealth < 0 ){
 				variableManage.currentHealth = 0;
 			}
-
 			// オブジェクトを空にする
 			hitObject = null;
-
 		}
 
 		// hpが０になったとき
@@ -118,13 +113,11 @@ public class characterMove : MonoBehaviour {
 	void FixedUpdate(){
 
 		if (!variableManage.controlLock) {
-
 			// 移動処理
 			if (variableManage.movingYaxis != 0) {
 				if (myRigid.velocity.magnitude < maxSpd) {
 					myRigid.AddForce (transform.TransformDirection (Vector3.forward) * basePower * 11f * variableManage.movingYaxis);
 				}
-
 				// 旋回処理
 				if (myRigid.angularVelocity.magnitude < (myRigid.velocity.magnitude * 0.3f)) {
 					myRigid.AddTorque (transform.TransformDirection (Vector3.up) * cornering * variableManage.movingXaxis * -90f);
@@ -143,17 +136,11 @@ public class characterMove : MonoBehaviour {
 		RaycastHit rhit;
 
 		if (!Physics.Raycast (raycastStartPos, transform.TransformDirection(-Vector3.up), out rhit, 3.0f) ){
-
 			// 地表い接してなければ下方向に力を加える
 			myRigid.AddForce(Vector3.up * -50.0f);
-
 		}
-
-		//
-
 	}
-
-
+		
 	// 衝突時に呼ばれる
 	void OnCollisionEnter(Collision col){
 		// bulletレイヤーに処理を限定
@@ -180,5 +167,4 @@ public class characterMove : MonoBehaviour {
 		returnPos = new Vector3 (returnPos.x, 24f, returnPos.z);
 		return returnPos;
 	}
-
 }

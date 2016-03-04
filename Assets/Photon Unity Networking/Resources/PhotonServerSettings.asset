@@ -45,4 +45,5 @@ MonoBehaviour:
   - syncFinished
   - sendCurentStatus
   - sendCurrentStatus
+  - sendDestructionAll
   DisableAutoOpenWizard: 0

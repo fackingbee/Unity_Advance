@@ -55,6 +55,7 @@
      <Compile Include="Assets\Plugins\ChatApi\ChatState.cs" />
      <Compile Include="Assets\Plugins\ChatApi\ChatUserStatus.cs" />
      <Compile Include="Assets\Plugins\ChatApi\IChatClientListener.cs" />
+     <Compile Include="Assets\Plugins\variableManage.cs" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
      <None Include="Assets\Resources\Map\lisence.txt" />
      <None Include="Assets\Plugins\release_history.txt" />

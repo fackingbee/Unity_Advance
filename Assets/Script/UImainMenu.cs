@@ -10,17 +10,15 @@ public class UImainMenu : MonoBehaviour {
 	public Text unlockText;
 	public Text unlockBtn;
 	public Text lvupNum;
+
 	//オブジェクト関連
 	public GameObject unlockBtnObj;
 	public GameObject lvupObj;
 
 	void Start () {
-	
 	}
-	
 
 	void Update () {
-	
 	}
 
 	public void jumpBattleScene(){
@@ -28,5 +26,4 @@ public class UImainMenu : MonoBehaviour {
 		Debug.Log ("敵減");
 		Application.LoadLevel("battle");
 	}
-
 }

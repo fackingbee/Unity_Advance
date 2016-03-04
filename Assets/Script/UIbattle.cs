@@ -13,26 +13,30 @@ public class UIbattle : MonoBehaviour {
 	public Text blueTeamText;
 	public Text healthText;
 	public Text returnText;
+
 	//オブジェクト格納
 	public GameObject returnMenu;
 	public GameObject mapUIobj;
-
 	public GameObject winLoseBase;
 	public GameObject winText;
 	public GameObject loseText;
-
 
 	// 仮想操作パッド関連 //
 	private float currentXpos;
 	private float currentYpos;
 	private float startXpos;
 	private float startYpos;
-	private bool touchStart;
+	private bool  touchStart;
+
+	//その他
+	private float massageTimer;
 
 	void Start () {
-		currentXpos = 0f;
-		currentYpos = 0f;
-		touchStart = false;
+		currentXpos   = 0f;
+		currentYpos   = 0f;
+		touchStart    = false;
+		massageTimer  = 0f;
+		infoText.text = "";
 	}
 
 	void Update () {
@@ -54,6 +58,7 @@ public class UIbattle : MonoBehaviour {
 				}
 			}
 		}
+
 	if(Input.touchCount == 0){
 			// 画面に指が触れていないときは座標を初期化 //
 			currentXpos = 0f;
@@ -64,8 +69,6 @@ public class UIbattle : MonoBehaviour {
 		}
 		// モバイル時のみ動作
 		if (Application.isMobilePlatform) {
-
-
 			// 移動量計算 - X軸
 			if ((startXpos - currentXpos) < (Screen.width * -0.05f)) {
 				// 右を入力
@@ -90,8 +93,9 @@ public class UIbattle : MonoBehaviour {
 			}
 		}
 
-		// 画面表示
+		//画面表示
 		healthText.text = "HP:" + variableManage.currentHealth;
+		timerText.text = Mathf.Round(variableManage.timeRest).ToString();
 
 		if(variableManage.myTeamID == 1){
 			blueTeamText.text = "D" + variableManage.team1Rest + "_L" + variableManage.base1Rest;
@@ -99,6 +103,25 @@ public class UIbattle : MonoBehaviour {
 		}else{
 			blueTeamText.text = "D" + variableManage.team2Rest + "_L" + variableManage.base2Rest;
 			redTeamText.text = "D" + variableManage.team1Rest + "_L" + variableManage.base1Rest;
+		}
+
+		//画面表示（メッセージ）
+		if(variableManage.informationMessage != 0){
+			if(variableManage.informationMessage == 1){
+				infoText.text = "味方が撃破されました";
+			}else if(variableManage.informationMessage == 2){
+				infoText.text = "敵を撃破しました";
+			}
+			variableManage.informationMessage = 0;
+			massageTimer = 3f;
+		}
+
+		if(massageTimer > 0f){
+			//3病後にメッセージを削除
+			massageTimer -= Time.deltaTime;
+			if(massageTimer <=0f){
+				infoText.text = "";
+			}
 		}
 
 		//勝敗用
@@ -115,8 +138,7 @@ public class UIbattle : MonoBehaviour {
 //		infoText.text = "X : " + variableManage.movingXaxis + "Y : " + variableManage.movingYaxis;
 		 
 	}
-
-
+		
 	//コンフィグ表示用ボタン
 	public void configToggle(){
 		if(returnMenu.GetActive()){

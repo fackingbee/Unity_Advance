@@ -106,11 +106,11 @@
      <Compile Include="Assets\Script\UIbattle.cs" />
      <Compile Include="Assets\Script\UImainMenu.cs" />
      <Compile Include="Assets\Script\animController.cs" />
+     <Compile Include="Assets\Script\baseStatus.cs" />
      <Compile Include="Assets\Script\characterMove.cs" />
      <Compile Include="Assets\Script\characterStatus.cs" />
      <Compile Include="Assets\Script\gameManage.cs" />
      <Compile Include="Assets\Script\mainShell.cs" />
-     <Compile Include="Assets\Script\variableManage.cs" />
      <Compile Include="Assets\Script\weaponManage.cs" />
      <Compile Include="Assets\Yama_Script\Old\Cube.cs" />
      <Compile Include="Assets\Yama_Script\Old\manage.cs" />

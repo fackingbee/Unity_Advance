@@ -84,4 +84,3 @@ public class characterStatus : MonoBehaviour {
 		myTeamID = myID;
 	}
 }
-//

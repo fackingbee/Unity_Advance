@@ -3,26 +3,25 @@ using System.Collections;
 
 public class variableManage : MonoBehaviour {
 
-	// 移動用変数
+	//移動用変数
 	static public int movingYaxis;
 	static public int movingXaxis;
 
-	// 攻撃用変数
+	//攻撃用変数
 	static public bool fireWeapon;
 	static public GameObject lockonTarget;
 	static public bool lockoned;
 
-	// 機体データ用変数
+	//機体データ用変数
 	static public float currentHealth;
 
-	// ゲーム管理用変数
+	//ゲーム管理用変数
 	static public int myTeamID;
 	static public bool mapEnabled;
+	static public GameObject team1baseBullet;
+	static public GameObject team2baseBullet;
 
-	// ほか
-	static public bool controlLock;
-
-	// 勝敗用変数
+	//勝敗用変数
 	static public bool finishedGame;//勝敗あ確定されたか
 	static public int team1Rest;//チーム１の残り撃破数
 	static public int team2Rest;// チーム２の残り撃破数
@@ -31,6 +30,11 @@ public class variableManage : MonoBehaviour {
 	static public float timeRest;//ゲームの残り時間
 	static public int gameResult; // 1-teamID=1の勝利、２−teamID＝２の勝利
 
+	//画面表示用変数
+	static public int informationMessage;
+
+	//ほか
+	static public bool controlLock;
 
 	void Start () {
 		// 変数の初期化 //
@@ -42,12 +46,10 @@ public class variableManage : MonoBehaviour {
 		movingYaxis = 0;
 		fireWeapon = false;
 		lockoned = false;
-
 		controlLock = false;
-
 		myTeamID = 0;
-
 		mapEnabled = false;
+		informationMessage = 0;
 
 		// 試合開始直後に破損しないように０にしない
 		currentHealth = 10f;
@@ -60,7 +62,5 @@ public class variableManage : MonoBehaviour {
 		base2Rest = 99999f;
 		timeRest = 400f;
 		gameResult = 0;
-
 	}
-
 }
