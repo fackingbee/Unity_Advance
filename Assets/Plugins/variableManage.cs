@@ -20,6 +20,7 @@ public class variableManage : MonoBehaviour {
 	static public bool mapEnabled;
 	static public GameObject team1baseBullet;
 	static public GameObject team2baseBullet;
+	static public float startTime;
 
 	//勝敗用変数
 	static public bool finishedGame;//勝敗あ確定されたか
@@ -32,6 +33,16 @@ public class variableManage : MonoBehaviour {
 
 	//画面表示用変数
 	static public int informationMessage;
+
+	//プレイヤー情報
+	static public int  currentExp;
+	static public int  nextExp;
+	static public int  currentLv;
+	static public bool showLvupMes   = false;
+	static public bool openMachine02 = false;
+	static public bool openMachine03 = false;
+
+
 
 	//ほか
 	static public bool controlLock;
@@ -58,8 +69,8 @@ public class variableManage : MonoBehaviour {
 		finishedGame = false;
 		team1Rest = 20;
 		team2Rest = 20;
-		base1Rest = 99999f;
-		base2Rest = 99999f;
+		base1Rest = 9999f;
+		base2Rest = 9999f;
 		timeRest = 400f;
 		gameResult = 0;
 	}

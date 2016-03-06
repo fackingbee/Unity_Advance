@@ -6,6 +6,9 @@
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.UI.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/JsonOrg.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/KiiCloudStorageSDK.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/KiiCloudUnitySDK.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Photon3Unity3D.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Mono.Cecil.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Unity.SerializationLogic.dll

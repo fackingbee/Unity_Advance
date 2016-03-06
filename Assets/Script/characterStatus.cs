@@ -49,9 +49,14 @@ public class characterStatus : MonoBehaviour {
 		if(myPV.isMine){
 			//敵味方一覧を3.5秒間隔でリフレッシュ
 			playerRefreshTimer += Time.deltaTime;
+		//	Debug.Log (playerRefreshTimer);
 			if(playerRefreshTimer > 3.5f){
+				
 				rdEnTemp = GameObject.FindGameObjectsWithTag ("enemy");
 				rdFrTemp = GameObject.FindGameObjectsWithTag ("Player");
+
+				playerRefreshTimer = 0f;	//←誤植！
+
 			}
 
 		//全味方のレーダー範囲に敵がるか2秒間隔で計算
@@ -70,6 +75,9 @@ public class characterStatus : MonoBehaviour {
 					}
 				}
 			}
+
+				distRefreshTimer = 0f;		//←誤植！
+
 		}
 	}
 

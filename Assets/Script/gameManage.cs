@@ -74,6 +74,7 @@ public class gameManage : MonoBehaviour {
 				myRoomHash["time"] = PhotonNetwork.time.ToString();
 				PhotonNetwork.room.SetCustomProperties(myRoomHash);
 				countStart = true;
+				variableManage.startTime = variableManage.timeRest;
 			}else if(!countStart){
 				//ルームの基準時間を取得
 				if(standardTime == "" && standardTime != "0"){
@@ -92,6 +93,7 @@ public class gameManage : MonoBehaviour {
 					variableManage.timeRest = 
 						variableManage.timeRest - Mathf.Round(svT - stT);
 					countStart = true;
+					variableManage.startTime = variableManage.timeRest;
 				}
 			}
 
@@ -244,6 +246,21 @@ public class gameManage : MonoBehaviour {
 				shiftTimer += Time.deltaTime;
 				//5秒後に移動
 				if(shiftTimer > 5.0f){
+					shiftTimer = 0f;
+					//経験値計算
+					if (variableManage.myTeamID == variableManage.gameResult) {
+						// 自分のチームが勝利
+						variableManage.currentExp += Mathf.RoundToInt (variableManage.startTime * 0.4f);
+					} else {
+						//自分のチームが敗北
+						variableManage.currentExp += Mathf.RoundToInt(variableManage.startTime * 0.15f);
+					}
+
+					//データを保存してシーン移動
+					bool svChk = KiiManage.saveKiiData();
+					if(!svChk){
+						svChk = KiiManage.saveKiiData ();
+					}
 					PhotonNetwork.Disconnect();
 					Application.LoadLevel("mainMenu");
 				}
@@ -278,7 +295,7 @@ public class gameManage : MonoBehaviour {
 		//GameObject myPlayer = PhotonNetwork.Instantiate("character/t01", new Vector3(440f,30f,-560f),Quaternion.identity,0);
 	}
 
-	// Photon Realtimeとの接続あ切断された場合
+	// Photon Realtimeとの接続が切断された場合
 	void OnConnectionFail(){
 		Application.LoadLevel ("mainMenu");
 	}
@@ -380,7 +397,7 @@ public class gameManage : MonoBehaviour {
 		variableManage.team1Rest = tc1;
 		variableManage.team2Rest = tc2;
 		variableManage.base1Rest = bc1;
-		variableManage.base1Rest = bc2;
+		variableManage.base2Rest = bc2;
 	}
 
 	//ゲーム終了を通知するRPC

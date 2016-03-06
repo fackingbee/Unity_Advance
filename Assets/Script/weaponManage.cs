@@ -129,8 +129,8 @@ public class weaponManage : MonoBehaviour {
 					yAngle = yAngle * -1.0f;
 				}
 
-				if (xAngle > 12.0f) {
-					xAngle = 12.0f;
+				if (xAngle > 6.0f) {
+					xAngle = 6.0f;
 				}
 
 				if (xDot < 0) {

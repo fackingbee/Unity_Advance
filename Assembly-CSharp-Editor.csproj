@@ -60,9 +60,12 @@
      <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonRigidbodyViewEditor.cs" />
      <Compile Include="Assets\Photon Unity Networking\Editor\PhotonNetwork\Views\PhotonTransformViewEditor.cs" />
      <None Include="Assets\Plugins\Photon3Unity3D.xml" />
+     <None Include="Assets\Plugins\Android\res\layout\kii_server_side_auth_dialog.xml" />
+     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
      <None Include="Assets\Resources\Map\lisence.txt" />
      <None Include="Assets\Plugins\release_history.txt" />
      <None Include="Assets\Yama_sky5X\README.txt" />
+     <None Include="Assets\Plugins\Android\res\values\kii-push-config.xml" />
      <None Include="Assets\Photon Unity Networking\readme.txt" />
      <None Include="Assets\Photon Unity Networking\changelog.txt" />
  <Reference Include="UnityEditor.Advertisements">
@@ -88,6 +91,15 @@
  </Reference>
  <Reference Include="UnityEditor.TreeEditor">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/TreeEditor/Editor/UnityEditor.TreeEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="JsonOrg">
+ <HintPath>/Users/yamamotoshouzou/Unity_Advance/Assets/Kii/Libs/JsonOrg.dll</HintPath>
+ </Reference>
+ <Reference Include="KiiCloudStorageSDK">
+ <HintPath>/Users/yamamotoshouzou/Unity_Advance/Assets/Kii/Libs/KiiCloudStorageSDK.dll</HintPath>
+ </Reference>
+ <Reference Include="KiiCloudUnitySDK">
+ <HintPath>/Users/yamamotoshouzou/Unity_Advance/Assets/Kii/Libs/KiiCloudUnitySDK.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
  <HintPath>/Users/yamamotoshouzou/Unity_Advance/Assets/Photon Unity Networking/Editor/PhotonNetwork/Newtonsoft.Json.dll</HintPath>

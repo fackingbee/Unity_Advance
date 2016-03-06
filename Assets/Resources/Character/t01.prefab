@@ -3858,9 +3858,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb0cf7e54ae754662908b6a519f4b77d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpd: 30
+  maxSpd: 100
   cornering: 1
-  basePower: 2
+  basePower: 5
   maxHealth: 10000
   myRigid: {fileID: 5423420}
   myPV: {fileID: 11424848}
@@ -3906,7 +3906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wep01atkPow: 3000
-  wep01rate: 5
+  wep01rate: 1
   wep01noa: 20
   wep01spd: 380
   wep01name: Misc/mainShell
