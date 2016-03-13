@@ -27,7 +27,7 @@ public class UImainMenu : MonoBehaviour {
 		lvupNum.text = variableManage.currentLv.ToString();
 		playerStatusText.text = 
 			"PlayerClass :" + variableManage.currentLv +
-		"NextClass" + variableManage.currentExp +
+		" NextClass " + variableManage.currentExp +
 		" / " + variableManage.nextExp;
 
 		//レベルアップメッセージ

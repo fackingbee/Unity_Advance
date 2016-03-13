@@ -155,10 +155,11 @@ public class KiiManage : MonoBehaviour {
 				KiiUser.CurrentUser.Bucket("myBasicData").Query(allQuery);
 			foreach(KiiObject obj in result){
 				//データを読み込み
-				variableManage.currentLv = (int)obj["lv"];
-				variableManage.currentExp = (int)obj["exp"];
+				variableManage.currentLv     = (int)obj["lv"];
+				variableManage.currentExp    = (int)obj["exp"];
 				variableManage.openMachine02 = (bool)obj["open2"];
 				variableManage.openMachine03 = (bool)obj["open3"];
+				variableManage.myWP          = (int)obj["wp"];
 			}
 		}catch (System.Exception e) {
 			Debug.Log(e);
@@ -175,13 +176,17 @@ public class KiiManage : MonoBehaviour {
 			//検索条件を指定
 			KiiQueryResult<KiiObject> result = 
 				KiiUser.CurrentUser.Bucket("myBasicData").Query(allQuery);
+
+			Debug.Log("kii : "+variableManage.currentLv);
+
 			foreach (KiiObject obj in result)
 			{
 				//データを保存
-				obj["lv"] = variableManage.currentLv;
-				obj["exp"] = variableManage.currentExp;
+				obj["lv"]    = variableManage.currentLv;
+				obj["exp"]   = variableManage.currentExp;
 				obj["open2"] = variableManage.openMachine02;
 				obj["open3"] = variableManage.openMachine03;
+				obj["wp"]    = variableManage.myWP;
 				obj.Save();
 			}
 		}
@@ -195,7 +200,7 @@ public class KiiManage : MonoBehaviour {
 
 	//ランダムの文字列を作成する
 	string randomCodeGenerate(int codeLength){
-		string allCode = "0123456789abcdefghijklmnopqrstuvwxABCDEFGHJKLMNOPQRSTUVWXYZ";
+		string allCode = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ";
 		string outPutCode = "";
 		for(int i = 0; i<codeLength; i++){
 			int rndTmp = Random.Range(0,allCode.Length);

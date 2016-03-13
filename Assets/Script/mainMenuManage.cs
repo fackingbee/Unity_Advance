@@ -8,6 +8,7 @@ public class mainMenuManage : MonoBehaviour {
 		//レベルアップ処理
 		if(variableManage.currentExp >= variableManage.nextExp){
 			variableManage.currentLv += 1;
+			Debug.Log (variableManage.currentLv);
 		  //variableManage.currentExp  = variableManage.nextExp - variableManage.currentExp; // 誤植：引き算が逆
 			variableManage.currentExp  = variableManage.currentExp - variableManage.nextExp ;
 			variableManage.showLvupMes = true;

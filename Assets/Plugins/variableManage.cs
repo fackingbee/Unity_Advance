@@ -35,12 +35,13 @@ public class variableManage : MonoBehaviour {
 	static public int informationMessage;
 
 	//プレイヤー情報
-	static public int  currentExp;
-	static public int  nextExp;
-	static public int  currentLv;
+	static public int  currentExp = 0;
+	static public int  nextExp = 100;
+	static public int  currentLv = 1;
 	static public bool showLvupMes   = false;
 	static public bool openMachine02 = false;
 	static public bool openMachine03 = false;
+	static public int  myWP = 0;
 
 
 
