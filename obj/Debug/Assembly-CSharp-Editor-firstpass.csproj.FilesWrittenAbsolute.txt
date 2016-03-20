@@ -4,6 +4,7 @@
 /Users/yamamotoshouzou/Unity_Advance/obj/Debug/Assembly-CSharp-Editor-firstpass.dll.mdb
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Advertisements.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.Advertisements.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/nunit.framework.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.EditorTestsRunner.dll
@@ -12,6 +13,8 @@
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Networking.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.Networking.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.TreeEditor.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Analytics.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEngine.Purchasing.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/JsonOrg.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/KiiCloudStorageSDK.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/KiiCloudUnitySDK.dll
@@ -27,6 +30,12 @@
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.LinuxStandalone.Extensions.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.WindowsStandalone.Extensions.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/UnityEditor.OSXStandalone.Extensions.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Security.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Apple.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Common.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Stores.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/winrt.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Editor.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp-firstpass.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Mono.Cecil.dll

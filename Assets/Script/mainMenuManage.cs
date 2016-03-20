@@ -24,25 +24,25 @@ public class mainMenuManage : MonoBehaviour {
 		variableManage.nextExp = variableManage.currentLv * 100;
 
 		//広告選択 0-unityAds, 1-AppC
-		selectAds = Random.Range(0,2);
-		if(selectAds == 0){
-			//UnityAds関連
-			if(Advertisement.isSupported){
-				if(!Advertisement.isInitialized){
-					//広告が初期化されていない場合
-					if(Application.platform == RuntimePlatform.Android){
-						//android
-						Advertisement.Initialize ("ゲームID");
-					}else{
-						//iOS
-						Advertisement.Initialize ("ゲームID");
-					}
-				}
-			}
-
-			adsFinished = false;
-
-		}
+//		selectAds = Random.Range(0,2);
+//		if(selectAds == 0){
+//			//UnityAds関連
+//			if(Advertisement.isSupported){
+//				if(!Advertisement.isInitialized){
+//					//広告が初期化されていない場合
+//					if(Application.platform == RuntimePlatform.Android){
+//						//android
+//						Advertisement.Initialize ("ゲームID");
+//					}else{
+//						//iOS
+//						Advertisement.Initialize ("ゲームID");
+//					}
+//				}
+//			}
+//
+//			adsFinished = false;
+//
+//		}
 
 //		//appcが使えないので保留中
 //		else{
@@ -63,16 +63,16 @@ public class mainMenuManage : MonoBehaviour {
 
 
 //		//unity ads広告表示
-//		if(Advertisement.isReady() && !adsFinished && variableManage.showAds){
-//			Advertisement.Show(null, new ShowOptions {
+		if(Advertisement.IsReady() && !adsFinished && variableManage.showAds){
+			Advertisement.Show(null, new ShowOptions {
 //				pause = true,
-//				resultCallback = result => {
-//					//広告の再生終了後に実行される箇所
-//					adsFinished = true;
-//					variableManage.showAds = false;
-//				}
-//			});
-//		}
+				resultCallback = result => {
+					//広告の再生終了後に実行される箇所
+					adsFinished = true;
+					variableManage.showAds = false;
+				}
+			});
+		}
 	
 
 	}

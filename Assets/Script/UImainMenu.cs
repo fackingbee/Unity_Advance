@@ -125,6 +125,7 @@ public class UImainMenu : MonoBehaviour {
 		currentShowMachineNum -= 1;
 		if(currentShowMachineNum < 1){
 			currentShowMachineNum = 1;
+//			Debug.Log (currentShowMachineNum);
 		}
 	}
 //
