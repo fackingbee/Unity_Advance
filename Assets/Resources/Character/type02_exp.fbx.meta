@@ -1,0 +1,356 @@
+fileFormatVersion: 2
+guid: 7973fa0f39ebd664db2a91f33ffe0198
+timeCreated: 1432131526
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: type02:belley
+    100002: type02:body
+    100004: type02:L01
+    100006: type02:L02
+    100008: type02:L03
+    100010: type02:L04
+    100012: type02:L05
+    100014: type02:L06
+    100016: type02:Ljoint
+    100018: type02:Lwep
+    100020: type02:R01
+    100022: type02:R02
+    100024: type02:R03
+    100026: type02:R04
+    100028: type02:R05
+    100030: type02:R06
+    100032: type02:Rjoint
+    100034: type02:Rwep
+    100036: //RootNode
+    400000: type02:belley
+    400002: type02:body
+    400004: type02:L01
+    400006: type02:L02
+    400008: type02:L03
+    400010: type02:L04
+    400012: type02:L05
+    400014: type02:L06
+    400016: type02:Ljoint
+    400018: type02:Lwep
+    400020: type02:R01
+    400022: type02:R02
+    400024: type02:R03
+    400026: type02:R04
+    400028: type02:R05
+    400030: type02:R06
+    400032: type02:Rjoint
+    400034: type02:Rwep
+    400036: //RootNode
+    2300000: type02:belley
+    2300002: type02:body
+    2300004: type02:L01
+    2300006: type02:L02
+    2300008: type02:L03
+    2300010: type02:L04
+    2300012: type02:L05
+    2300014: type02:L06
+    2300016: type02:Ljoint
+    2300018: type02:Lwep
+    2300020: type02:R01
+    2300022: type02:R02
+    2300024: type02:R03
+    2300026: type02:R04
+    2300028: type02:R05
+    2300030: type02:R06
+    2300032: type02:Rjoint
+    2300034: type02:Rwep
+    2300036: //RootNode
+    3300000: type02:belley
+    3300002: type02:body
+    3300004: type02:L01
+    3300006: type02:L02
+    3300008: type02:L03
+    3300010: type02:L04
+    3300012: type02:L05
+    3300014: type02:L06
+    3300016: type02:Ljoint
+    3300018: type02:Lwep
+    3300020: type02:R01
+    3300022: type02:R02
+    3300024: type02:R03
+    3300026: type02:R04
+    3300028: type02:R05
+    3300030: type02:R06
+    3300032: type02:Rjoint
+    3300034: type02:Rwep
+    3300036: //RootNode
+    4300000: type02:base
+    4300002: type02:belley
+    4300004: type02:body
+    4300006: type02:Ljoint
+    4300008: type02:Lwep
+    4300010: type02:Rjoint
+    4300012: type02:Rwep
+    4300014: type02:L01
+    4300016: type02:L02
+    4300018: type02:L03
+    4300020: type02:L04
+    4300022: type02:L05
+    4300024: type02:L06
+    4300026: type02:R01
+    4300028: type02:R02
+    4300030: type02:R03
+    4300032: type02:R04
+    4300034: type02:R05
+    4300036: type02:R06
+    7400000: moving
+    7400002: dam
+    7400004: destroy
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: moving
+      takeName: Base Stack
+      firstFrame: 0
+      lastFrame: 59
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: type02:belley
+        weight: 1
+      - path: type02:belley/type02:body
+        weight: 0
+      - path: type02:belley/type02:body/type02:Ljoint
+        weight: 0
+      - path: type02:belley/type02:body/type02:Ljoint/type02:Lwep
+        weight: 0
+      - path: type02:belley/type02:body/type02:Rjoint
+        weight: 0
+      - path: type02:belley/type02:body/type02:Rjoint/type02:Rwep
+        weight: 0
+      - path: type02:L01
+        weight: 1
+      - path: type02:L01/type02:L02
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05/type02:L06
+        weight: 1
+      - path: type02:R01
+        weight: 1
+      - path: type02:R01/type02:R02
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05/type02:R06
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: dam
+      takeName: Base Stack
+      firstFrame: 60
+      lastFrame: 90
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: type02:belley
+        weight: 1
+      - path: type02:belley/type02:body
+        weight: 1
+      - path: type02:belley/type02:body/type02:Ljoint
+        weight: 1
+      - path: type02:belley/type02:body/type02:Ljoint/type02:Lwep
+        weight: 1
+      - path: type02:belley/type02:body/type02:Rjoint
+        weight: 1
+      - path: type02:belley/type02:body/type02:Rjoint/type02:Rwep
+        weight: 1
+      - path: type02:L01
+        weight: 1
+      - path: type02:L01/type02:L02
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05/type02:L06
+        weight: 1
+      - path: type02:R01
+        weight: 1
+      - path: type02:R01/type02:R02
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05/type02:R06
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    - serializedVersion: 16
+      name: destroy
+      takeName: Base Stack
+      firstFrame: 90
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: type02:belley
+        weight: 1
+      - path: type02:belley/type02:body
+        weight: 1
+      - path: type02:belley/type02:body/type02:Ljoint
+        weight: 1
+      - path: type02:belley/type02:body/type02:Ljoint/type02:Lwep
+        weight: 1
+      - path: type02:belley/type02:body/type02:Rjoint
+        weight: 1
+      - path: type02:belley/type02:body/type02:Rjoint/type02:Rwep
+        weight: 1
+      - path: type02:L01
+        weight: 1
+      - path: type02:L01/type02:L02
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05
+        weight: 1
+      - path: type02:L01/type02:L02/type02:L03/type02:L04/type02:L05/type02:L06
+        weight: 1
+      - path: type02:R01
+        weight: 1
+      - path: type02:R01/type02:R02
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05
+        weight: 1
+      - path: type02:R01/type02:R02/type02:R03/type02:R04/type02:R05/type02:R06
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

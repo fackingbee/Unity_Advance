@@ -33,6 +33,8 @@
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp-firstpass.dll.mdb
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp-Editor-firstpass.dll
+/Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Assembly-CSharp-Editor-firstpass.dll.mdb
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Mono.Cecil.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Unity.SerializationLogic.dll
 /Users/yamamotoshouzou/Unity_Advance/Temp/bin/Debug/Unity.DataContract.dll

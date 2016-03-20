@@ -6,7 +6,7 @@ public class gameManage : MonoBehaviour {
 	//Photon用変数定義
 	ExitGames.Client.Photon.Hashtable myPlayerHash;
 	ExitGames.Client.Photon.Hashtable myRoomHash;
-	string[] roomProps = { "time" };
+	string[] roomProps = { "time","lv","wp" };
 	private PhotonView scenePV;
 
 	//敵味方判別 //
@@ -154,11 +154,11 @@ public class gameManage : MonoBehaviour {
 				sendOnce = false;
 			}
 
-			//マスタークライアントで拠点が攻撃された場合、全クライアントへ送信
+			// マスタークライアントで拠点が攻撃された場合、全クライアントへ送信
 			if(PhotonNetwork.isMasterClient){
-				//後でコメントアウト解除。デバッグの為にユーザーが一人でもダメージが通る
-//				if (PhotonNetwork.room.playerCount > 1) {
-					//拠点1の耐久力を減らす
+				// デバッグの為にユーザーが一人でもダメージが通るにしたければコメントアウト
+				if(PhotonNetwork.room.playerCount > 1) {
+					// 拠点1の耐久力を減らす
 					if (variableManage.team1baseBullet != null) {
 						bc1tmp -= variableManage.team1baseBullet.GetComponent<mainShell> ().pow;
 						if (bc1tmp < 0) {
@@ -176,9 +176,9 @@ public class gameManage : MonoBehaviour {
 						}
 						variableManage.team2baseBullet = null;
 					}
-//				} else {
-//					variableManage.team2baseBullet = null;
-//				}
+				} else {
+					variableManage.team2baseBullet = null;
+				}
 			}
 
 			// 勝敗を確定
@@ -289,6 +289,10 @@ public class gameManage : MonoBehaviour {
 						svChk = KiiManage.saveKiiData ();
 					}
 					PhotonNetwork.Disconnect();
+
+					// 対戦が終わったら広告表示する変数
+					variableManage.showAds = true;
+
 					Application.LoadLevel("mainMenu");
 				}
 			}
@@ -305,7 +309,7 @@ public class gameManage : MonoBehaviour {
 		myPlayerHash.Add ("lv", variableManage.currentLv);
 		myPlayerHash.Add ("wp", variableManage.myWP);
 		PhotonNetwork.SetPlayerCustomProperties (myPlayerHash);
-		//入室処
+		//入室処理
 		betterRoomSearch();
 	}
 

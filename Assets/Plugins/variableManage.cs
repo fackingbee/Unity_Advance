@@ -3,26 +3,26 @@ using System.Collections;
 
 public class variableManage : MonoBehaviour {
 
-	//移動用変数
+	// 移動用変数
 	static public int movingYaxis;
 	static public int movingXaxis;
 
-	//攻撃用変数
+	// 攻撃用変数
 	static public bool fireWeapon;
 	static public GameObject lockonTarget;
 	static public bool lockoned;
 
-	//機体データ用変数
+	// 機体データ用変数
 	static public float currentHealth;
 
-	//ゲーム管理用変数
+	// ゲーム管理用変数
 	static public int myTeamID;
 	static public bool mapEnabled;
 	static public GameObject team1baseBullet;
 	static public GameObject team2baseBullet;
 	static public float startTime;
 
-	//勝敗用変数
+	// 勝敗用変数
 	static public bool finishedGame;//勝敗あ確定されたか
 	static public int team1Rest;//チーム１の残り撃破数
 	static public int team2Rest;// チーム２の残り撃破数
@@ -31,10 +31,10 @@ public class variableManage : MonoBehaviour {
 	static public float timeRest;//ゲームの残り時間
 	static public int gameResult; // 1-teamID=1の勝利、２−teamID＝２の勝利
 
-	//画面表示用変数
+	// 画面表示用変数
 	static public int informationMessage;
 
-	//プレイヤー情報
+	// プレイヤー情報
 	static public int  currentExp = 0;
 	static public int  nextExp = 100;
 	static public int  currentLv = 1;
@@ -43,10 +43,15 @@ public class variableManage : MonoBehaviour {
 	static public bool openMachine03 = false;
 	static public int  myWP = 0;
 
+//	// appc cloud停止中 2016.03.19
+	static public int mySelectMachine = 1;
 
 
-	//ほか
+	// ほか
 	static public bool controlLock;
+
+	// 対戦画面に戻ってきた時だけ表示する変数
+	static public bool showAds = false;
 
 	void Start () {
 		// 変数の初期化 //
@@ -70,8 +75,8 @@ public class variableManage : MonoBehaviour {
 		finishedGame = false;
 		team1Rest = 20;
 		team2Rest = 20;
-		base1Rest = 9999f;
-		base2Rest = 9999f;
+		base1Rest = 99999f;
+		base2Rest = 99999f;
 		timeRest = 400f;
 		gameResult = 0;
 	}
